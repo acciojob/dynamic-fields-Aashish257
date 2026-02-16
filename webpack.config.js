@@ -34,6 +34,19 @@ module.exports = {
             template: "./src/index.html"
         })
     ],
+
+    // devServer config added so the dev server is reachable from remote/devcontainer environments
+    devServer: {
+        host: '0.0.0.0',
+        port: 8080,
+        disableHostCheck: true,
+        hot: true,
+        open: true,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
+    },
+
     resolve: {
         extensions: ['.js', '.jsx'],
     }

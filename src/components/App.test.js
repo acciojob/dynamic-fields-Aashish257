@@ -31,3 +31,25 @@ test('add and remove fields maintain input[name] attributes', () => {
   expect(nameInputs.length).toBe(1);
   expect(ageInputs.length).toBe(1);
 });
+
+test('submit logs the fields array to console.log', () => {
+  const { container, getByText } = render(<App />);
+  const nameInput = container.querySelector('input[name="name"]');
+  const ageInput = container.querySelector('input[name="age"]');
+
+  // fill values
+  fireEvent.change(nameInput, { target: { value: 'Alice' } });
+  fireEvent.change(ageInput, { target: { value: '30' } });
+
+  const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+  fireEvent.click(getByText('Submit'));
+
+  expect(spy).toHaveBeenCalled();
+  // first call should have the fields array as the first argument
+  const firstCallArg = spy.mock.calls[0][0];
+  expect(Array.isArray(firstCallArg)).toBe(true);
+  expect(firstCallArg[0]).toMatchObject({ name: 'Alice', age: '30' });
+
+  spy.mockRestore();
+});

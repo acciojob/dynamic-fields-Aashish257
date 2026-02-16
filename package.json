@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --no-color 2>output.txt",
-    "start": "webpack-dev-server --mode development --watch --open --hot",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server --mode development --watch --open --hot --host 0.0.0.0 --disable-host-check",
     "build": "webpack --mode production"
   },
   "keywords": [],
@@ -18,7 +18,8 @@
     "react-dom": "^16.13.1",
     "style-loader": "^1.2.1",
     "webpack-cli": "^3.3.12",
-    "cypress": "^9.5.0"
+    "cypress": "^9.5.0",
+    "http-parser-js": "^0.5.3"
   },
   "jest": {
     "moduleNameMapper": {
